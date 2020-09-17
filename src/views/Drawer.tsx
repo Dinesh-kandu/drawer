@@ -23,7 +23,6 @@ const {
   clockRunning,
   startClock,
   stopClock,
-  interpolate,
   spring,
   abs,
   add,
@@ -548,10 +547,7 @@ export default class Drawer extends React.PureComponent<Props> {
                   style={[
                     styles.overlay,
                     {
-                      opacity: interpolate(this.progress, {
-                        inputRange: [PROGRESS_EPSILON, 1],
-                        outputRange: [0, 1],
-                      }),
+                      opacity: divide(sub(this.progress, PROGRESS_EPSILON), 1-PROGRESS_EPSILON),
                       // We don't want the user to be able to press through the overlay when drawer is open
                       // One approach is to adjust the pointerEvents based on the progress
                       // But we can also send the overlay behind the screen, which works, and is much less code
